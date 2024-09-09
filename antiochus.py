@@ -8,7 +8,7 @@ def main():
         description="Extract commands from a book or directory of books using Nmap and other commands.")
     parser.add_argument('--file', type=str, help="Path to a single PDF file to rip.")
     parser.add_argument('--dir', type=str, help="Directory containing multiple PDF files to rip.")
-    parser.add_argument('--output', type=str, default="commands.csv",
+    parser.add_argument('--output', type=str, default="knowledge.csv",
                         help="Output CSV file name (default: commands.csv).")
     parser.add_argument('--verbose', action='store_true', help="Enable verbose output.")
     parser.add_argument('--knowledge', type=str, help="Existing knowledge CSV file to append to.")

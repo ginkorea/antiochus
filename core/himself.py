@@ -12,6 +12,8 @@ class Antiochus:
         Initializes the Antiochus class with optional existing knowledge.
         :param knowledge: Optional existing DataFrame to store commands and contexts.
         """
+        if knowledge is not None:
+            knowledge = pd.read_csv(knowledge)
         self.knowledge = knowledge
         self.book = book  # Book object to store the text
         self.tasks = Task()
@@ -21,7 +23,7 @@ class Antiochus:
         """Picks up a book and initializes the Book object."""
         self.book = Book(file_path)
         self.book.get_book_type()
-        print(f"Picked up {self.book.file_path}")
+        print(f"Picked up {self.book.file_path_or_url}")
         self.read()
 
     def read(self):
