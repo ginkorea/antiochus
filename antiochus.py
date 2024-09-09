@@ -2,9 +2,6 @@ import argparse
 from core.himself import Antiochus  # Importing the new Antiochus class
 
 
-
-
-
 def main():
     # Argument parser
     parser = argparse.ArgumentParser(
