@@ -1,5 +1,6 @@
 import PyPDF2
 import docx
+import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import requests
@@ -79,7 +80,7 @@ class Book:
             raise ValueError(f"Error reading TXT: {e}")
 
     def read_epub(self):
-        """Reads text from an EPUB file."""
+        """Reads text from an EPUB file with extensive debugging."""
         try:
             if self.type == 'url':
                 response = requests.get(self.file_path_or_url)
@@ -91,12 +92,26 @@ class Book:
 
             text = ""
             for item in book.get_items():
-                if item.get_type() == epub.EpubItem.DOCUMENT:
-                    soup = BeautifulSoup(item.get_body_content(), 'html.parser')
-                    text += soup.get_text()
+                # Debug: Print the content type of each item
+                print(f"Item type: {type(item)} - Content type: {getattr(item, 'get_content_type', lambda: 'N/A')()}")
+
+                # Check if the item has text content and extract it
+                if hasattr(item, 'get_content_type'):
+                    content_type = item.get_content_type()
+
+                    # We're only interested in document types like xhtml, html, or plain text
+                    if content_type in ['application/xhtml+xml', 'text/html', 'text/plain']:
+                        soup = BeautifulSoup(item.get_body_content(), 'html.parser')
+                        extracted_text = soup.get_text(separator=' ', strip=True)
+                        text += extracted_text + "\n"
+
+                        # Debug: Show the extracted text for this content item
+                        print(f"Extracted Text (first 500 chars): {extracted_text[:500]}")
+
+            return text
+
         except Exception as e:
             raise ValueError(f"Error reading EPUB: {e}")
-        return text
 
     def read_docx(self):
         """Reads text from a DOCX file."""

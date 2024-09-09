@@ -62,4 +62,3 @@ class Antiochus:
         else:
             raise ValueError("No knowledge to write. Run rip_commands and clean_commands first.")
 
-
