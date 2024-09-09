@@ -29,7 +29,7 @@ def main():
 
     if args.file:
         # Process a single file
-        antiochus.tasks.process_file(antiochus, args.file, args.output, args.verbose)
+        antiochus.tasks.process_file(antiochus, args.file, args.verbose)
 
     if args.dir:
         # Process a directory of PDF files
